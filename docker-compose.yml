@@ -1,22 +1,19 @@
 version: '3'
 
 services:
-  rabbitmq:
-    build: ./rabbitmq
-    container_name: rabbitmq
+
+  kafka:
+    build: ./kafka
+    container_name: kafka
     restart: always
     ports:
-      - "5672:5672"
-      - "15672:15672"
-    networks: 
+      - "2181:2181"
+      - "3030:3030"
+      - "8081-8083:8081-8083"
+      - "9581-9585:9581-9585"
+      - "9092:9092"
+    networks:
       - infrastructure
-    volumes:
-      - "./.docker/rabbitmq:/var/lib/rabbitmq"
-    environment:
-      RABBITMQ_ERLANG_COOKIE: $RABBITMQ_ERLANG_COOKIE
-      RABBITMQ_DEFAULT_USER: $RABBITMQ_DEFAULT_USER
-      RABBITMQ_DEFAULT_PASS: $RABBITMQ_DEFAULT_PASS
-      RABBITMQ_DEFAULT_VHOST: $RABBITMQ_DEFAULT_VHOST
 
   mongo:
     build: ./mongo
@@ -46,15 +43,6 @@ services:
       POSTGRES_USER: $POSTGRES_USER
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
       POSTGRES_DB: $POSTGRES_DB
-
-  adminer:
-    image: adminer
-    container_name: adminer
-    restart: always
-    networks: 
-      - infrastructure
-    ports:
-      - 7070:8080
 
 networks:
   infrastructure: 
