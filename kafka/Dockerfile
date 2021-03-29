@@ -1,1 +1,0 @@
-FROM lensesio/fast-data-dev:2.5.1-L1

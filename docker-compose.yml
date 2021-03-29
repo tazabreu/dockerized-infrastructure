@@ -3,7 +3,7 @@ version: '3'
 services:
 
   kafka:
-    build: ./kafka
+    image: lensesio/fast-data-dev:2.5.1-L1
     container_name: kafka
     restart: always
     ports:
@@ -16,7 +16,7 @@ services:
       - infrastructure
 
   mongo:
-    build: ./mongo
+    image: mongo:4.4.1-bionic
     container_name: mongo
     restart: always
     ports:
@@ -30,7 +30,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: $MONGO_INITDB_ROOT_PASSWORD
 
   postgres:
-    build: ./postgres
+    image: postgres:12.4-alpine
     container_name: postgres
     restart: always
     ports:
@@ -43,6 +43,13 @@ services:
       POSTGRES_USER: $POSTGRES_USER
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
       POSTGRES_DB: $POSTGRES_DB
+  
+  redis:
+    image: redis:6.2.1-alpine
+    restart: always
+    container_name: redis
+    ports:
+      - "6379:6379"
 
 networks:
   infrastructure: 
